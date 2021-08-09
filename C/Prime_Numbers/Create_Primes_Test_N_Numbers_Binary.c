@@ -11,7 +11,7 @@
 /* This value must be a multiple of 9 (and >= 9). */
 #define MAX_DIGITS 9
 
-/* Divide-By-32: Num = Num / 32, and Return = Num Modulo 32. */
+/* Divide-By-N: Num = Num / N, and Return = Num Modulo N. */
 int dividebyN(char num[MAX_DIGITS+1], int divisor)
 {
     int temp_val  = 0;
