@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+
+commit_message="$1"
+
+if [[ "$commit_message" == "" || "$commit_message" == " " ]]
+then
+    commit_message="[GitSync] `date`"
+fi
+
+current_dir="$PWD"
+
+github_dir="/home/mfcarlo/Documents/Management/Projects/1Github/${PWD##*/}"
+
+echo -ne "\n----------------------------------------"
+echo  -e "----------------------------------------"
+
+echo  -e " GitSync - A script by Melwyn Francis Carlo"
+
+echo -ne "----------------------------------------"
+echo  -e "----------------------------------------\n"
+
+if [ ! -d "$github_dir" ]
+then
+
+    echo -e " Apologies, but the local GitHub repository named \n"
+    echo -e "     '${PWD##*/}'\n"
+    echo -e " does not exist.\n\n"
+
+    exit 1
+fi
+
+if [ ! -d "${github_dir}/.git" ]
+then
+
+    echo -e " Apologies, but the local GitHub repository's system folder,"
+    echo -e " '.git', does not exist.\n\n"
+
+    exit 1
+fi
+
+if [ ! -f "${github_dir}/.git/config" ]
+then
+
+    echo -e " Apologies, but the local GitHub repository's configuration file,"
+    echo -e " '.git/config', does not exist.\n\n"
+
+    exit 1
+fi
+
+remote_label=`grep  "\[remote \"" "${github_dir}/.git/config"`
+branch_label=`grep  "\[branch \"" "${github_dir}/.git/config"`
+
+remote_label_arr=($remote_label)
+branch_label_arr=($branch_label)
+
+remote_label="${remote_label_arr[1]}"
+branch_label="${branch_label_arr[1]}"
+
+if [[ ${#remote_label} -gt 3 ]]
+then
+    remote_label="${remote_label:1}"
+    remote_label="${remote_label:0:-2}"
+fi
+
+if [[ ${#branch_label} -gt 3 ]]
+then
+    branch_label="${branch_label:1}"
+    branch_label="${branch_label:0:-2}"
+fi
+
+if [[ "$remote_label" == "" || "$branch_label" == "" ]]
+then
+    echo -e " Apologies, but the local GitHub repository's configuration file,"
+    echo -e " '.git/config', seems to have been doctored.\n\n"
+
+    exit 1
+fi
+
+echo -e " Transferring from the local user directory :\n\n     ${PWD}\n"
+
+echo -e " Transferring to the local GitHub directory :\n\n     ${github_dir}\n"
+
+echo -ne "----------------------------------------"
+echo  -e "----------------------------------------"
+
+rsync -aEp --info=progress2 --exclude=".*" "${PWD}/" "$github_dir"
+
+echo -ne "----------------------------------------"
+echo  -e "----------------------------------------"
+
+echo  -e "\n Transfer complete.\n"
+
+echo -ne " Internet connection test ...  "
+
+wget -q --spider "https://www.google.com/"
+
+if [ $? -ne 0 ]; then
+    echo  -e "\bFailed!\n"
+    echo  -e " Apologies, but the internet seems to be down.\n\n"
+
+    exit 1
+fi
+
+echo  -e "\bSuccess!\n"
+echo -ne " Uploading to the GitHub repository ..."
+
+cd "$github_dir"
+
+git pull "$remote_label" "$branch_label" &> /dev/null
+
+if [[ $? != 0 ]]
+then
+    echo -e " Failed!\n"
+    echo -e " Apologies, but the 'git pull' command was not successful.\n\n"
+
+    exit 1
+fi
+
+git add . &> /dev/null
+
+if [[ $? != 0 ]]
+then
+    echo -e " Failed!\n"
+    echo -e " Apologies, but the 'git add' command was not successful.\n\n"
+
+    exit 1
+fi
+
+git commit -m "$commit_message" &> /dev/null
+
+if [[ $? != 0 ]]
+then
+    echo -e " Failed!\n"
+    echo -e " Apologies, but the 'git commit' command was not successful,"
+    echo -e " perhaps because there are no new contents to update.\n\n"
+
+    exit 1
+fi
+
+git push "$remote_label" "$branch_label" &> /dev/null
+
+if [[ $? != 0 ]]
+then
+    echo -e " Failed!\n"
+    echo -e " Apologies, but the 'git push' command was not successful.\n\n"
+
+    exit 1
+fi
+
+cd "$current_dir"
+
+echo  -e " Done!\n"
+echo  -e " GitSync process complete!\n\n"
+
+exit 0
+

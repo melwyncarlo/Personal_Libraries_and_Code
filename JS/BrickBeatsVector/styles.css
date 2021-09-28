@@ -1,0 +1,149 @@
+/* Copyright 2021 Melwyn Francis Carlo */
+
+.no-selection
+{
+    user-select         : none;
+   -ms-user-select      : none;
+   -moz-user-select     : none;
+   -webkit-user-select  : none;
+}
+
+body
+{
+    text-align          : center;
+}
+
+#copyright
+{
+    font-size           : small;
+}
+
+#welcome-container
+{
+    display             : inline;
+    width               : 99vw;
+    height              : 99vh;
+    text-align          : center;
+}
+
+#welcome-sub-container
+{
+    margin              : 25px auto;
+    padding             : 5px 10px;
+    width               : 50vw;
+    height              : 60vh;
+    text-align          : left;
+    overflow            : scroll;
+}
+
+#settings-table
+{
+    margin              : auto;
+    text-align : left;
+    font-size: 17px;
+}
+
+#settings-table td
+{
+    height: 20px;
+    padding: 5px 15px;
+    vertical-align: middle;
+}
+
+#command-terms-heading
+{
+    vertical-align: top !important;
+}
+
+#button-cell-td
+{
+    height: 0px !important;
+    padding: 0px !important;
+}
+
+#button-cell-div
+{
+    text-align: center !important;
+    margin-bottom: 5px;
+}
+
+#button-element
+{
+    width: 500px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.text-box
+{
+    padding: 5px 10px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+#main-container
+{
+    display             : none;
+    margin-bottom       : 15px;
+}
+
+#main-sub-container
+{
+    table-layout        : fixed;
+    width               : 100%;
+    border-collapse     : collapse;
+    border              : 1px black solid;
+}
+
+#grid
+{
+    margin              : auto;
+    border-collapse     : collapse;
+}
+
+.bottom-rows
+{
+    padding             : 0px 5px;
+    width               : 48vw;
+}
+
+.cli
+{
+    padding             : 5px 10px;
+    width               : 95%;
+    height              : 100%;
+    font-size           : 14px;
+    cursor              : text;
+    font-family         : monospace;
+    color               : whitesmoke;
+    background-color    : #202020;
+    pointer-events      : none;
+}
+
+.cli-left
+{
+    margin-left         : 0.5%;
+    padding-right       : 2%;
+}
+
+.cli-right
+{
+    margin-right        : 0.5%;
+    padding-left        : 2%;
+}
+
+#level-status
+{
+    margin-bottom       : 1.5%;
+}
+
+#cli-input
+{
+    margin-bottom       : 1.5%;
+    font-weight         : bold;
+    letter-spacing      : 0.25em;
+    pointer-events      : auto !important;
+}
+

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<!-- Copyright 2021 Melwyn Francis Carlo -->
+
+<html>
+
+    <head>
+        <meta charset="UTF-8"> 
+        <title>The 'Brick beats Vector' Game | by Melwyn Francis Carlo</title>
+        <link rel="stylesheet" type="text/css" href="styles.css?cache=123">
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+
+    <body oncopy  = "return false" 
+          oncut   = "return false" 
+          onpaste = "return false" 
+          onundo  = "return false" 
+          onredo  = "return false">
+
+        <div id="welcome-container" class="no-selection">
+
+            <h2 align="left"> &nbsp;&nbsp; Welcome to the . . .</h2>
+            <h1 align="right">. . . 'Brick beats Vector' game! &nbsp;&nbsp; </h1>
+
+            <hr>
+
+            <div id="welcome-sub-container">
+
+                <table id="settings-table">
+                    <tr>
+                        <td colspan="3">
+                            <h3>Configuration:</h3><hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Angle type
+                        </td>
+                        <td>
+                            <input type="radio" name="angle-type" id="counter-clockwise" value="Counter-clockwise" checked>
+                            <label for="counter-clockwise">Counter-clockwise</label>
+                        </td>
+                        <td>
+                            <input type="radio" name="angle-type" id="clockwise" value="Clockwise">
+                            <label for="clockwise">Clockwise</label>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3"><hr></td></tr>
+                    <tr>
+                        <td>
+                            Grid cell size
+                        </td>
+                        <td>
+                            <i>in pixels (px)</i>
+                        </td>
+                        <td>
+                            <input class="text-box" type="text" id="grid-cell-size" value="35">
+                        </td>
+                    </tr>
+                    <tr><td colspan="3"><hr></td></tr>
+                    <tr>
+                        <td id="command-terms-heading" rowspan="6">
+                            Command terms
+                            <br><br>
+                            <i>(Insensitive casing)</i>
+                        </td>
+                        <td>Up<br></td>
+                        <td><input class="text-box" type="text" id="up-command" value="up"><br></td>
+                    </tr>
+                    <tr>
+                        <td>Down<br></td>
+                        <td><input class="text-box" type="text" id="down-command" value="down"><br></td>
+                    </tr>
+                    <tr>
+                        <td>Left<br></td>
+                        <td><input class="text-box" type="text" id="left-command" value="left"><br></td>
+                    </tr>
+                    <tr>
+                        <td>Right<br></td>
+                        <td><input class="text-box" type="text" id="right-command" value="right"><br></td>
+                    </tr>
+                    <tr>
+                        <td>Brick<br></td>
+                        <td><input class="text-box" type="text" id="brick-command" value="brick"><br></td>
+                    </tr>
+                    <tr>
+                        <td>Shoot <i>deg</i> (e.g. Shoot -90)</td>
+                        <td><input class="text-box" type="text" id="shoot-command" value="shoot"><br></td>
+                    </tr>
+                    <tr><td colspan="3"><hr></td></tr>
+                    <tr>
+                        <td id="button-cell-td" colspan="3">
+                            <div id="button-cell-div">
+                                <button id="button-element" onclick="validate_options()">Let's start the game!</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div id="main-container" class="no-selection">
+            <table id="main-sub-container">
+
+                <tr>
+                    <td colspan="2">
+                        <table id="grid"></table>
+                        <hr>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="bottom-rows">
+                        <input class="cli cli-left" id="amunition-status" type="text" value="Ammunition :  10" readonly>
+                    </td>
+
+                    <td class="bottom-rows">
+                        <input class="cli cli-right" id="cli-output" type="text" value="The game begins in 5 ..." readonly>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="bottom-rows">
+                        <input class="cli cli-left" id="level-status" type="text" value="Level      :  1" readonly>
+                    </td>
+
+                    <td class="bottom-rows">
+                        <input class="cli cli-right" id="cli-input" type="text" placeholder="█">
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <hr>
+
+        <span id="copyright">
+            Brick beats Vector, a simple, edutainment web-based game; written in JavaScript.
+            <br>
+            Copyright 2021 Melwyn Francis Carlo
+        </span>
+
+    </body>
+
+</html>
