@@ -46,9 +46,8 @@ do
     fi
 done
 
-echo  -e "Done!"
+echo  -e "Done!\n"
 
-echo
 odt_files_list=(`find . -type f -iname "*.odt"`)
 
 echo -ne " Converting ${#odt_files_list[@]} ODT files to PDF ... "
@@ -66,7 +65,9 @@ done
 
 echo  -e " Done!\n"
 
-echo -ne " Creating the PDF symbolic links ... "
+pdf_files_list=(`find . -type f -iname "*.pdf"`)
+
+echo -ne " Creating ${#pdf_files_list[@]} PDF symbolic links ... "
 
 if [ ! -d "${PWD}/PDF_Links" ]
 then
@@ -75,17 +76,9 @@ fi
 
 rm -r "${PWD}/PDF_Links"/* &> /dev/null
 
-for odt_file in "${odt_files_list[@]}"
+for pdf_file in "${pdf_files_list[@]}"
 do
-    pdf_file_name="${odt_file}"
-
-    pdf_file_name="${pdf_file_name/".odt"/".pdf"}"
-
-    pdf_file_name="$(basename "${pdf_file_name}")"
-
-    symbolic_file_path="$(dirname "${odt_file}")"
-
-    symbolic_file_path="$(dirname "${symbolic_file_path}")"
+    symbolic_file_path="${pdf_file}"
 
     if [[ "${symbolic_file_path:0:1}" == "." ]]
     then
@@ -97,12 +90,12 @@ do
         symbolic_file_path="${symbolic_file_path:1}"
     fi
 
-    odt_file_modified="${symbolic_file_path}"
+    pdf_file_modified="${symbolic_file_path}"
 
-    symbolic_file_path="${symbolic_file_path//\//"---"}"
+    symbolic_file_path="${symbolic_file_path//\//"-----"}"
 
-    ln -s "${PWD}/${odt_file_modified}/${pdf_file_name}" \
-          "${PWD}/PDF_Links/${symbolic_file_path}---${pdf_file_name}" &> /dev/null
+    ln -s "${PWD}/${pdf_file_modified}" \
+          "${PWD}/PDF_Links/${symbolic_file_path}" &> /dev/null
 done
 
 echo  -e " Done!\n"
