@@ -149,8 +149,8 @@ fi
 
 cd "$current_dir"
 
-echo  -e " Done!\n"
-echo  -e " GitSync process complete!\n\n"
+echo -e " Done!\n"
+echo -e " GitSync process complete!\n\n"
 
 exit 0
 

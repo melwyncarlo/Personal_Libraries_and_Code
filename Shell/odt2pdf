@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+echo -ne "\n----------------------------------------"
+echo  -e "----------------------------------------"
+
+echo  -e " Odt2pdf - A script by Melwyn Francis Carlo"
+
+echo -ne "----------------------------------------"
+echo  -e "----------------------------------------\n"
+
+hidden_odt_files_list=(`find . -iname '.*.odt' -o -iname '.*.odt#'`)
+
+echo -ne " Deleting ${#hidden_odt_files_list[@]} hidden ODT files ... "
+
+for hidden_odt_file in "${hidden_odt_files_list[@]}"
+do
+    rm -f "${hidden_odt_file}" &> /dev/null
+done
+
+hidden_odt_files_deleted=0
+
+while [ $hidden_odt_files_deleted -eq 0 ]
+do
+    sleep 0.1
+
+    hidden_odt_files_list=(`find . -iname '.*.odt' -o -iname '.*.odt#'`)
+
+    if [ ${#hidden_odt_files_list[@]} -eq 0 ]
+    then
+        hidden_odt_files_deleted=1
+    fi
+done
+
+echo  -e "Done!"
+
+echo
+odt_files_list=(`find . -type f -iname "*.odt"`)
+
+echo -ne " Converting ${#odt_files_list[@]} ODT files to PDF ... "
+
+for odt_file in "${odt_files_list[@]}"
+do
+
+    odt_file_dir_path="$(dirname "${odt_file}")"
+
+    # Reference : https://stackoverflow.com/questions/30349542/command-libreoffice-headless-convert-to-pdf-test-docx-outdir-pdf-is-not
+
+    soffice --headless --norestore "-env:UserInstallation=file:///tmp/LibreOffice_Conversion_${USER}" --convert-to pdf:writer_pdf_Export --outdir "$(dirname "${odt_file_dir_path}")" "${odt_file}" &> /dev/null
+
+done
+
+echo -e " Done!\n"
+echo -e " Odt2pdf process complete!\n\n"
+
+exit 0
+
